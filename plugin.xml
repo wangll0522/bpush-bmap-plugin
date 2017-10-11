@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    id="cordova-plugin-bpush"
+    version="0.0.1">
+    
+    <name>cordova-plugin-bpush</name>
+    <description>Bpush for cordova plugin</description>
+    <author>ll_wang</author>
+    
+    
+    
+    <engines>
+        <engine name="cordova" version=">=3.0"/>
+    </engines>
+    
+    <!-- android -->
+    <platform name="android">
+        
+        <js-module src="www/BPushPlugin.js" name="BPushPlugin">
+            <clobbers target="BPushPlugin"/>
+            <clobbers target="cordova.BPushPlugin"/>
+            <clobbers target="window.BPushPlugin"/>
+        </js-module>
+        
+        <config-file target="res/xml/config.xml" parent="/*">
+            <feature name="BPushPlugin">
+                <param name="android-package" value="cn.beyondmap.plugins.push.BPushPlugin"/>
+            </feature>
+        </config-file>
+        
+        <config-file target="AndroidManifest.xml" parent="/manifest">
+            <!-- Required  一些系统要求的权限，如访问网络等-->
+            <!-- 连接互联网Internet权限 -->
+            <uses-permission android:name="android.permission.INTERNET" />
+            
+            <!-- 用于访问wifi网络信息，wifi信息会用于进行网络定位-->
+            <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"></uses-permission>
+            <!-- 获取运营商信息，用于支持提供运营商信息相关的接口-->
+            <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"></uses-permission>
+            <!-- 这个权限用于获取wifi的获取权限，wifi信息会用来进行网络定位-->
+            <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"></uses-permission>
+            <!-- 用于读取手机当前的状态-->
+            <uses-permission android:name="android.permission.READ_PHONE_STATE"></uses-permission>
+        
+            <!-- 允许应用读取低级别的系统日志文件 -->
+            <uses-permission android:name="android.permission.READ_LOGS" >
+            </uses-permission>
+            
+            <uses-permission android:name="android.permission.WAKE_LOCK"/>
+            <uses-permission android:name="android.permission.DEVICE_POWER" />
+            
+        </config-file>
+        <config-file target="AndroidManifest.xml" parent="/manifest/application">
+            
+        </config-file>
+        
+        <source-file src="src/android/BPushPlugin.java" target-dir="src/cn/beyondmap/plugins/push"/>
+        <source-file src="src/android/BpushHandler.java" target-dir="src/cn/beyondmap/plugins/push"/>
+        <source-file src="src/android/BPushClient.java" target-dir="src/cn/beyondmap/plugins/push"/>
+        <source-file src="src/android/gson-2.2.4.jar" target-dir="libs"/>
+        <source-file src="src/android/slf4j-android-1.5.8.jar" target-dir="libs"/>
+        
+        <source-file src="src/android/netty-all-4.1.4.Final.jar" target-dir="libs"/>
+        <source-file src="src/android/protobuf-java-3.0.0.jar" target-dir="libs"/>
+        <source-file src="src/android/protobuf-1.0-SNAPSHOT.jar" target-dir="libs"/>
+    </platform>
+</plugin>
